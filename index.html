@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>King Fams</title>
+    <title>King Fams - Fullscreen</title>
 
     <style>
         * {
@@ -16,6 +16,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background: #000;
         }
 
         iframe {
@@ -26,15 +27,54 @@
             height: 100%;
             border: none;
         }
+
+        #fullscreenBtn {
+            position: fixed;
+            z-index: 9999;
+            top: 15px;
+            right: 15px;
+            padding: 12px 18px;
+            background: #111;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 8px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
 
     <iframe
+        id="appFrame"
         src="https://script.google.com/macros/s/AKfycbxvbYCcbusoSZ2bu-nQja8NpG9QZpvQlIQBJ2feOiZ4v7e2h9oZ1q4A2PU9sLKCv7Ia1w/exec"
+        allow="fullscreen"
         allowfullscreen>
     </iframe>
+
+    <button id="fullscreenBtn" onclick="openFullscreen()">
+        ⛶ Fullscreen
+    </button>
+
+    <script>
+        function openFullscreen() {
+            const elem = document.documentElement;
+
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(err => {
+                    console.log("Fullscreen gagal:", err);
+                });
+            }
+        }
+
+        document.addEventListener("fullscreenchange", function() {
+            const btn = document.getElementById("fullscreenBtn");
+
+            btn.style.display = document.fullscreenElement
+                ? "none"
+                : "block";
+        });
+    </script>
 
 </body>
 </html>
